@@ -19,9 +19,9 @@
       </div>
       <div formArrayName="verse" class="verseInputGroup">
         <h4>Versos</h4><button class="btn btn-default" (click)="addVerse()"><fa name="plus" size="small"></fa></button>
-        <div *ngFor="let v of songForm.get('verse').controls; index as i">
+        <div *ngFor="let v of songForm.get('verse')['controls']; index as i">
           <div [formGroup]="v" class="verseWrapper">
-            <button *ngIf="songForm.get('verse').controls.length > 1" (click)="removeVerse(i)" class="btn btn-default removeVerse">
+            <button *ngIf="songForm.get('verse')['controls'].length > 1" (click)="removeVerse(i)" class="btn btn-default removeVerse">
               <fa name="minus" size="smaill"></fa>
             </button>
             <textarea type="text" formControlName="lirycs"></textarea>
