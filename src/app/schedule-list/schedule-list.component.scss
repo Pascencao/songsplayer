@@ -1,0 +1,11 @@
+ul{
+    overflow-y: scroll;
+    height: 100%;
+    li{
+        cursor: pointer;
+        line-height: 40px;
+        &:hover{
+            background: #ccc;
+        }
+    }
+}

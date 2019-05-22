@@ -1,0 +1,30 @@
+.verses-list{
+    height: calc(50vh - 190px);
+    max-height: calc(50vh - 190px);
+    overflow-y: scroll;
+    li{
+        font-size: 12px;
+        cursor: pointer;
+        &:hover{
+            z-index: 2;
+            color: #fff;
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+    }
+}
+.selector{
+    position: relative;
+    width: 80%;
+    display: inline-block;
+    .dropdown{
+        position: absolute;
+        top: 40px;
+        height:200px;
+        width: 100%;
+        overflow-y: scroll;
+    }
+}
+.btn{
+    float: right;
+}

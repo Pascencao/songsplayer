@@ -1,0 +1,21 @@
+p{
+    text-align: center;
+    font-size: 50px;
+    font-weight: bold;
+    vertical-align: middle;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    color: #fff;
+    span{
+        display: block;
+        width: 100%;
+    }
+    .quote{
+        position: absolute;
+        bottom: 3%;
+        right: 5%;
+        font-size: 50%;
+        text-align: right;
+    }
+}

@@ -1,0 +1,23 @@
+<section>
+  <div class="filter">
+    <fa name="search" size="small" class="s"></fa>
+    <input [(ngModel)]="filter" type="text" class="filterInput">
+    <button class="btn btn-light addSong" (click)="createSongModal(newSong)" placement="right" ngbTooltip="Agregar canción"><fa name="plus" size="small"></fa></button>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li *ngFor="let song of songs | search:'order,name':filter" class="list-group-item">
+      <button type="button" class="btn btn-light btn-block" (click)="addSongToSchedule(song)">{{song.order}} - {{song.name}}</button>
+      </li>
+  </ul>
+</section>
+
+<ng-template #newSong let-newSongModal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Crear Cancion</h4>
+    <button type="button" class="close" aria-label="Close" (click)="newSongModal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+    <app-new-song [newSong]="createdSong" (closeModal)="newSongModal.close($event)"></app-new-song>
+  
+</ng-template>

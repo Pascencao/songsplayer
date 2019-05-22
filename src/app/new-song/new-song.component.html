@@ -1,0 +1,41 @@
+<div class="modal-body">
+  <form [formGroup]="songForm" class="row">
+    <div class="col-9">
+      <div class="row">
+        <div class="col-2">
+          <label for="order">Orden:</label>
+        </div>
+        <div class="col-10">
+          <label for="name">Nombre:</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-2">
+          <input type="text" name="order" formControlName="order">
+        </div>
+        <div class="col-10">
+          <input type="text" name="name" formControlName="name">
+        </div>
+      </div>
+      <div formArrayName="verse" class="verseInputGroup">
+        <h4>Versos</h4><button class="btn btn-default" (click)="addVerse()"><fa name="plus" size="small"></fa></button>
+        <div *ngFor="let v of songForm.get('verse').controls; index as i">
+          <div [formGroup]="v" class="verseWrapper">
+            <button *ngIf="songForm.get('verse').controls.length > 1" (click)="removeVerse(i)" class="btn btn-default removeVerse">
+              <fa name="minus" size="smaill"></fa>
+            </button>
+            <textarea type="text" formControlName="lirycs"></textarea>
+            <!-- <input type="checkbox" formControlName="isChorus"> -->
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="col-3">
+      <input type="file" (change)="onFileChange($event)" name="background" formControlName="defaultBackground">
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-outline-dark" (click)="saveModal()">Guardar</button>
+</div> 

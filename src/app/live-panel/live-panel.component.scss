@@ -1,0 +1,11 @@
+app-verse-list,app-verse-preview{
+    height: calc(50vh - 50px);
+    display: block;
+}
+app-verse-preview{
+    background: #204B57;
+    padding: 15px;
+}
+/deep/ .container-fluid{
+    padding: 0;
+}

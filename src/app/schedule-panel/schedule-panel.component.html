@@ -1,0 +1,18 @@
+<article>
+  <app-schedule-list [scheduleList]="scheduleList" (removeSong)="removedSong($event)" (previewSong)="showSong($event)" (liveSong)="presentSong($event)"></app-schedule-list>
+</article>
+<article>
+  <ngb-tabset #t="ngbTabset">
+    <ngb-tab id="songs" title="Canciones">
+      <ng-template ngbTabContent>
+        <app-songs-list (selectedSong)="selectedSong($event)"></app-songs-list>
+      </ng-template>
+    </ngb-tab>
+    <ngb-tab id="bible" title="Biblia">
+      <ng-template ngbTabContent>
+        <app-bible (toSchedule)="addToSchedule($event)"></app-bible>
+      </ng-template>
+    </ngb-tab>
+
+  </ngb-tabset>
+</article>

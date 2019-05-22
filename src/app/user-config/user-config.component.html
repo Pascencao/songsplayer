@@ -1,0 +1,15 @@
+<div class="modal-body">
+  <form [formGroup]="userForm">
+    <label for="name">
+      Nombre:
+      <input type="text" name="name" formControlName="name">
+    </label>
+    <label for="logo">
+      Logo:
+      <input type="file" (change)="onFileChange($event)" name="logo" formControlName="logo">      
+    </label>
+  </form>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="saveModal()">Guardar</button>
+</div>

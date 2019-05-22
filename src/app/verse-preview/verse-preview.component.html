@@ -1,0 +1,4 @@
+<p *ngIf="activeVerse">
+  <span [ngStyle]="styles" *ngIf="activeVerse.lirycs || activeVerse.text" [innerHTML]="activeVerse.lirycs || activeVerse.text | replaceNewLine"></span>
+  <span *ngIf="activeVerse.text" class="quote">{{activeVerse.book}} {{activeVerse.chapter}}:{{activeVerse.verse}}</span>
+</p>

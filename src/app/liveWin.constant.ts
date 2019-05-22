@@ -1,0 +1,1 @@
+export const LIVE_WIN: any = location.pathname !== '/live' ? window.open('http://localhost:4200/live', 'Live screen','fullscreen=yes,scrollbars=no,status=no,menubar=no') : null;

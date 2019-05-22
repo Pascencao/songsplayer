@@ -1,0 +1,18 @@
+<header >
+    <app-main-config (savedList)="restoredSchedule($event)"></app-main-config>
+</header>
+<section class="layout">
+  <div class="row">
+    <app-schedule-panel class="col-3" [savedSchedule]="restoredSongs" (displayVerse)="versicleSelected($event)" (displaySong)="songSelected($event)" (liveSong)="presentSong($event)"></app-schedule-panel>
+    <div class="col-9">
+      <div class="row main-dashboard">
+        <div class="col-6 previewPanel">
+          <app-song-preview [activeSong]="selectedSong"></app-song-preview>
+        </div>
+        <div class="col-6 livePanel">
+          <app-live-panel [liveSong]="liveSong"></app-live-panel>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

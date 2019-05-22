@@ -1,0 +1,37 @@
+section{
+    background: #abc;
+    height: 100%;
+    h3{
+        font-size: 16px;
+        padding: 5px 7px;
+    }
+    ul{
+        height: 85%;
+        overflow-y: scroll;
+        button{
+            text-align: left;
+        }
+    }
+    .filter{
+        position: relative;
+        padding: 10px 10px;
+        fa[name="search"]{
+            position: absolute;
+            left: 15px;
+            top: 13px;
+        }
+        .filterInput{
+            border: none;
+            border-bottom: 1px solid #888;
+            background: transparent;
+            width: 80%;
+            padding-left: 25px;
+            height: 35px;
+        }
+        .addSong{
+            position: absolute;
+            right: 15px;
+            top: 10px;
+        }
+    }
+}

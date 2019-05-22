@@ -1,0 +1,34 @@
+<header>
+  <div class="selector" (blur)="isOpen = false">
+    <input
+      type="text"
+      class="form-control"
+      (keyup)="search()"
+      [(ngModel)]="quote"
+      (focus)="isOpen = true"
+      #searchVerse
+    />
+    <div class="dropdown" *ngIf="isOpen">
+      <ul class="list-group">
+        <li *ngFor="let item of booksList | search:'label,name':quote" class="list-group-item" (click)="selected(item)">{{item.label}}</li>
+      </ul>
+    </div>
+  </div>
+  <button class="btn btn-light" (click)="sendScriptures()" placement="right" ngbTooltip="Agregar a la lista">
+    <fa name="upload" size="small"></fa>
+  </button>
+  <ul class="list-group verses-list">
+    <li (click)="addToSchedule(item)" *ngFor="let item of versiclesList" [ngClass]="{'active': item.checked}" class="list-group-item">
+      <span>{{item.verse}}. </span>{{item.text}}
+    </li>
+  </ul>
+  <div class="actions">
+    <button class="btn btn-light float-left" [disabled]="!selectedQuote.chapter || (selectedQuote.chapter === 1 && selectedQuote.verse === 0)">
+      <fa name="angle-left" size="small"></fa>
+    </button>
+    
+    <button class="btn btn-light float-right" [disabled]="!versiclesList.length" (click)="more()">
+      <fa name="angle-right" size="small"></fa>
+    </button>
+  </div>
+</header>

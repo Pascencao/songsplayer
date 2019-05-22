@@ -1,0 +1,18 @@
+<section class="loginForm">
+  <h1>Songs Player</h1>
+  <form [formGroup]="loginForm" novalidate (submit)="login($event)" class="row">
+    <label for="username" class="col-12">
+      Usuario:
+      <input type="text" name="username" formControlName="identifier" required>
+    </label>
+    <label for="password" class="col-12">
+      Contraseña:
+      <input type="password" name="password" formControlName="password" required>
+    </label>
+    <p class="error col-12" *ngIf="loginIncorrect">Nombre de Usuario o contraseña incorrecto</p>
+    <div class="col-12">
+      <button type="submit" class="btn btn-light float-right">Ingresar</button>
+
+    </div>
+  </form>
+</section>

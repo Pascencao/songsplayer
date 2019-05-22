@@ -1,0 +1,59 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">Songs Player</a>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <button class="btn btn-light" (click)="openConfig(userConfig)">Configuración</button>
+      </li>
+
+      <li class="nav-item dropdown">
+        <div class="d-inline-block" ngbDropdown #myDrop="ngbDropdown">
+          <button class="btn btn-outline-primary mr-2" [disabled]="!savedSchedules.length" id="dropdownManual" ngbDropdownAnchor (focus)="myDrop.open()">Guardadas</button>
+          <div ngbDropdownMenu aria-labelledby="dropdownManual">
+            <button ngbDropdownItem *ngFor="let sche of savedSchedules" (click)="getSaved(sche.elements)">{{sche.name}}</button>
+          </div>
+        </div>
+      </li>
+      <li class="nav-item">
+        <button class="btn btn-light"(click)="saveSchedule(scheduleName)">
+          <fa name="save" size="2x"></fa>
+        </button>
+      </li>
+    </ul>
+    <app-live-screen-handlers></app-live-screen-handlers>
+    <!-- <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form> -->
+  </div>
+</nav>
+<ng-template #scheduleName let-scheduleNameModal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Planificación</h4>
+    <button type="button" class="close" aria-label="Close" (click)="scheduleNameModal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <form [formGroup]="scheduleForm" >
+    <div class="modal-body">
+        <label for="name">
+          Nombre:
+          <input type="text" name="name" formControlName="name">
+        </label>
+    </div>
+    <div class="modal-footer">
+      <button type="button" [disabled]="scheduleForm.invalid" class="btn btn-outline-dark" (click)="scheduleNameModal.close($event)">Guardar</button>
+    </div> 
+  </form>
+  
+</ng-template>
+
+<ng-template #userConfig let-userConfig>
+  <div class="modal-header">
+    <h4>Configuración de Usuario</h4>
+  </div>
+    <app-user-config (closeModal)="userConfig.close($event)"></app-user-config>
+  
+
+</ng-template>
