@@ -1,6 +1,10 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
-import { CanActivate } from '@angular/router/src/utils/preactivation';
+import { Observable } from 'rxjs';
+
+interface CanActivate {
+    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) : Observable<boolean>|Promise<boolean>|boolean
+}
 
 @Injectable()
 export class UserLoggedIn implements CanActivate {
@@ -10,7 +14,7 @@ export class UserLoggedIn implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
-  ): boolean {
+  ): Observable<boolean> | Promise<boolean> | boolean {
     const token = localStorage.getItem('token');
     if(!token){
         this.router.navigate(['/login']);

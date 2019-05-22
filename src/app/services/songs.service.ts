@@ -20,14 +20,16 @@ export class SongsService {
 
   getSongs(id?): Observable<any> {
     id = id ? `/${id}` : '';
-    return this.api.call<any[]>({url: `${this.songsUrl}${id}`, method: 'get'});
+    return this.api.call({
+      url: `${this.songsUrl}${id}`, method: 'get'
+      });
   }
   getBachSongs(ids: number[]){
     let idsStg = '?';
     ids.map(id => { 
       idsStg += `id_in=${id}&`;
     })
-    return this.http.get<any[]>(`${this.songsUrl}${idsStg}`);
+    return this.api.call({url: `${this.songsUrl}${idsStg}`, method: 'get'});
 
   }
   createSong(newSong): Observable<any> {
