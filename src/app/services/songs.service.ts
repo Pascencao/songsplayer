@@ -33,22 +33,22 @@ export class SongsService {
 
   }
   createSong(newSong): Observable<any> {
-    return this.http.post<any[]>(this.songsUrl, newSong);
+    return this.api.call({url: this.songsUrl, method: 'post', body: newSong});
   }
   updateSong(song): Observable<any> {
-    return this.http.put<any[]>(`${this.songsUrl}/${song.id}`, song);
+    return this.api.call({url: `${this.songsUrl}/${song.id}`, method: 'put', body: song});
   }
   deleteSong(id): Observable<any> {
-    return this.http.delete<any[]>(`${this.songsUrl}/${id}`);
+    return this.api.call({url: `${this.songsUrl}/${id}`, method: 'delete'});
   }
   createVerse(verse): Observable<any> {
-    return this.http.post<any[]>(`${this.verseUrl}`, verse);
+    return this.api.call({url: this.verseUrl, method: 'post', body: verse});
   }
   deleteVerse(id): Observable<any> {
-    return this.http.delete<any[]>(`${this.verseUrl}/${id}`);
+    return this.api.call({url: `${this.verseUrl}/${id}`, method: 'delete'});
   }
   updateVerse(verse): Observable<any> {
-    return this.http.delete<any[]>(`${this.verseUrl}/${verse.id}`,verse);
+    return this.api.call({url: `${this.verseUrl}/${verse.id}`, method: 'put', body: verse});
   }
   addBackground(image, type, id){
     let form = new FormData();
@@ -56,7 +56,7 @@ export class SongsService {
     form.append('ref', type);
     form.append('field', (type == 'song'? 'defaultBackground' : 'background') );
     form.append('refId', id);
-    return this.http.post(this.uploadUrl, form);
+    return this.api.call({url: this.uploadUrl, method: 'post', body: form});
   }
   createFullSong(newSong){
 
