@@ -38,14 +38,12 @@ export class NewSongComponent implements OnInit {
     );
   }
   onFileChange(event) {
-    console.log(event)
     this.file = event.srcElement.files[0];
   }
   removeVerse(index: number){
     this.verses.removeAt(index);
   }
   saveModal(){
-    console.log(this.songForm);
     this.songSrv.createFullSong({...this.songForm.value, defaultBackground: this.file});
     this.closeModal.emit({...this.songForm.value, defaultBackground: this.file});
   }

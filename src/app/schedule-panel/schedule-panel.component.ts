@@ -46,6 +46,6 @@ export class SchedulePanelComponent implements OnInit, OnChanges {
     this.liveSong.emit(song);
   }
   stored(){
-    localStorage.setItem('actualSchedule', JSON.stringify(this.scheduleList.map((item:any) => item.id || (`${item.book} ${item.chapter}:${item.verse}`))));
+    localStorage.setItem('actualSchedule', JSON.stringify(this.scheduleList.map((item:any) => item.id || item.quote )));
   }
 }

@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  DOMAIN: 'http://localhost:1337'
+  // DOMAIN: 'http://localhost:1337'
+  DOMAIN: 'https://songsplayer-be.herokuapp.com'
 };
 
 /*

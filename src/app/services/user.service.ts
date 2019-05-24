@@ -15,7 +15,6 @@ export class UserService {
   authenticate(credentials){
 
     return this.http.post(`${DOMAIN}/auth/local`, credentials).pipe(switchMap((response: any) =>{
-      console.log(response)
       localStorage.setItem('token', response.jwt)
       return of(response);
     }))

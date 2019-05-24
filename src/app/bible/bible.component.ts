@@ -26,7 +26,7 @@ export class BibleComponent implements OnInit {
     })
   }
   selected(item){
-    this.quote = item.label;
+    this.quote = item.name;
     this.isOpen = false;
     this.searchVerse.nativeElement.focus()
   }

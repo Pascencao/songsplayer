@@ -24,7 +24,7 @@ export class DashboardComponent implements OnInit {
     this.liveSong = song;
   }
   versicleSelected(verse: Versicles){
-    console.log(verse);
+    // console.log(verse);
   }
   restoredSchedule(songs:Song[]){
     this.restoredSongs = songs

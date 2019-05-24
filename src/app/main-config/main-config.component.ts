@@ -3,6 +3,7 @@ import { SongsService } from '../services/songs.service';
 import { ScheduleService } from '../services/schedule.service';
 import { FormBuilder, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { BibleService } from '../services/bible.service';
 
 @Component({
   selector: 'app-main-config',
@@ -17,7 +18,8 @@ export class MainConfigComponent implements OnInit {
     name: ['', Validators.required]
   });
   constructor(
-    private songSrv: SongsService, 
+    private songSrv: SongsService,
+    private bibleSrv: BibleService,
     private scheduleSrv: ScheduleService, 
     private fb:FormBuilder,
     private modalService: NgbModal
@@ -26,15 +28,33 @@ export class MainConfigComponent implements OnInit {
   ngOnInit() {
     this.scheduleSrv.getSavedSchedules()
       .subscribe(sche => {
-        this.savedSchedules = sche;
+        this.savedSchedules = sche || [];
       })
   }
 
   getSaved(ids){
-    this.songSrv.getBachSongs(ids)
-    .subscribe(songs => {
-      this.savedList.emit(songs);
+    let obs = [];
+    let quoates = ids.filter(item => item.filter(item => item.match(/\w+\ [0-9]{1,3}:[0-9]{1,3}/g)));
+    let songsIds = ids.filter(item => item.filter(item => !item.match(/\w+\ [0-9]{1,3}:[0-9]{1,3}/g)));
+    obs.push(this.songSrv.getBachSongs(songsIds))
+    quoates.map(quote => {
+      let indexes = quote.match(/\d{1,3}/g)
+      let book = quote.replace(/\d{1,3}/g, '').replace(':', '').trim()
+
+      obs.push(this.bibleSrv.getVersicle({
+        book,
+        chapter: indexes[0] || 1,
+        verse: indexes[1] || 1,
+        limit: indexes[2] || null
+      }));
+
     })
+
+    // .subscribe(songs => {
+    //   console.log('saved', songs)
+    //   this.savedList.emit(songs);
+    // })
+
   }
 
   saveSchedule(modal){
@@ -54,7 +74,7 @@ export class MainConfigComponent implements OnInit {
   }
   openConfig(modal){
     this.modalService.open(modal,{size: 'lg', centered: true, keyboard: false}).result.then(() => {
-      console.log('Config guardadas');
+      // console.log('Config guardadas');
     })
   }
 }

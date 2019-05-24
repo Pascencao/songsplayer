@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { DOMAIN } from '../domain.constants';
+import { ApiCommsService } from './api-comms.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,12 +9,24 @@ import { DOMAIN } from '../domain.constants';
 export class ScheduleService {
   scheduleUrl:string = `${DOMAIN}/schedules/`;
 
-  constructor(private http:HttpClient) { }
+  constructor(private apiSrv:ApiCommsService) { }
 
   saveSchedule(sche): Observable<any>{
-    return this.http.post(this.scheduleUrl, sche);
+    return this.apiSrv.call({
+      method: 'post',
+      url: this.scheduleUrl,
+      body: sche
+    });
   }
   getSavedSchedules(): Observable<any> {
-    return this.http.get(`${this.scheduleUrl}?_limit=15`);
+    return this.apiSrv.call({
+      method: 'get',
+      url: this.scheduleUrl,
+      options: {
+        params: {
+          _limit:15
+        }
+      }
+    });
   }
 }

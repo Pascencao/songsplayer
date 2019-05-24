@@ -18,7 +18,6 @@ export class UserConfigComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private UserSrv:UserService) {
     this.UserSrv.getUserData().subscribe(user => {
-      console.log(user);
       this.user = user;
     })
   }

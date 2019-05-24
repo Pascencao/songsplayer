@@ -7,7 +7,7 @@ import { Versicles } from 'src/models/versicles.model';
   templateUrl: './verse-list.component.html',
   styleUrls: ['./verse-list.component.scss']
 })
-export class VerseListComponent implements OnInit {
+export class VerseListComponent implements OnInit{
   @Input() verses:(Verse|Versicles)[] = [];
   @Output()  onSelection: EventEmitter<Verse|Versicles> = new EventEmitter();
   active: number;

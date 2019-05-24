@@ -19,7 +19,6 @@ export class VersePreviewComponent implements OnInit, OnChanges {
     }
   }
   ngOnChanges(){
-    console.log('it Change!!')
     let size = 20;
     let aux = this.activeVerse ? (this.activeVerse.lirycs || this.activeVerse.text) : '';
     if(aux.length <= 190){

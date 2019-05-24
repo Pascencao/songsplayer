@@ -14,6 +14,7 @@ export class LivePanelComponent implements OnInit, OnChanges {
   activeVerse: Verse;
   liveWin: any;
   stylesConfig: any;
+  verses: [] = [];
   constructor() {
   }
 
@@ -28,6 +29,7 @@ export class LivePanelComponent implements OnInit, OnChanges {
   }
   
   ngOnChanges(){
+    this.verses = this.liveSong ? (this.liveSong.verse || this.liveSong['verses'] || []) : [];
     LIVE_WIN.postMessage({
       song: this.liveSong
     });

@@ -21,7 +21,6 @@ export class ApiCommsService {
       config.options = {...config.options, ...this.httpOptions};
        return this.http[config.method](config.url, config.options);
     } else {
-
        return this.http[config.method](config.url, config.body, this.httpOptions);
     }
   }
