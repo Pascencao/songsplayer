@@ -1,11 +1,19 @@
 ul{
     overflow-y: scroll;
     height: 100%;
-    li{
+    li.list-group-item{
         cursor: pointer;
+        padding: 0 15px;
         line-height: 40px;
         &:hover{
             background: #ccc;
         }
     }
 }
+.dropdown-toggle{
+    vertical-align: sub;
+    &:after{
+        vertical-align: super;
+    }
+}
+

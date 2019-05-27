@@ -8,7 +8,7 @@ import { Component, OnInit, Input, OnChanges } from '@angular/core';
 export class VersePreviewComponent implements OnInit, OnChanges {
   @Input() activeVerse: any;
   @Input() isLive: boolean = false;
-  incremnetal: number = 2.5;
+  incremnetal: number = 1;
   styles = {};
   constructor() { 
   }
@@ -34,7 +34,7 @@ export class VersePreviewComponent implements OnInit, OnChanges {
       size = 60;
     }
     this.styles = {
-      "font-size": this.isLive ? (size * this.incremnetal)+'px' : `${size}px`
+      "font-size": this.isLive ? (size * this.incremnetal)+'%' : `${size}%`
     }
   }
 }

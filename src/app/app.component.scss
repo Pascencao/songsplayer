@@ -1,0 +1,22 @@
+/* width */
+/deep/ ::-webkit-scrollbar {
+    width: 7px;
+    height: 7px;
+}
+
+/* Track */
+/deep/ ::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey; 
+    border-radius: 10px;
+}
+
+/* Handle */
+/deep/ ::-webkit-scrollbar-thumb {
+    background: #204B57; 
+    border-radius: 10px;
+}
+
+/* Handle on hover */
+/deep/ ::-webkit-scrollbar-thumb:hover {
+    background: #102828; 
+}

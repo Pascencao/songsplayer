@@ -4,6 +4,11 @@ import { ScheduleService } from '../services/schedule.service';
 import { FormBuilder, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BibleService } from '../services/bible.service';
+import { of, Observable, forkJoin } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
+import { Scriptures } from 'src/models/scriptures.model';
+import { Versicles } from 'src/models/versicles.model';
+import { flatten } from '@angular/compiler';
 
 @Component({
   selector: 'app-main-config',
@@ -27,33 +32,39 @@ export class MainConfigComponent implements OnInit {
 
   ngOnInit() {
     this.scheduleSrv.getSavedSchedules()
-      .subscribe(sche => {
-        this.savedSchedules = sche || [];
-      })
+      .subscribe(sche => this.savedSchedules = sche || [])
   }
 
   getSaved(ids){
-    let obs = [];
-    let quoates = ids.filter(item => item.filter(item => item.match(/\w+\ [0-9]{1,3}:[0-9]{1,3}/g)));
-    let songsIds = ids.filter(item => item.filter(item => !item.match(/\w+\ [0-9]{1,3}:[0-9]{1,3}/g)));
-    obs.push(this.songSrv.getBachSongs(songsIds))
+    let obs: Observable<any>[] = [];
+    let quoates = ids.filter(item => item.match(/\w+\ [0-9]{1,3}:[0-9]{1,3}/g));
+    let songsIds = ids.filter(item => !item.match(/\w+\ [0-9]{1,3}:[0-9]{1,3}/g));
+
+    if(songsIds.length){
+      obs.push(this.songSrv.getBachSongs(songsIds))
+    }
     quoates.map(quote => {
       let indexes = quote.match(/\d{1,3}/g)
-      let book = quote.replace(/\d{1,3}/g, '').replace(':', '').trim()
+      let book = quote.replace(/\d{1,3}/g, '').replace(' -','').replace(':', '').trim();
 
-      obs.push(this.bibleSrv.getVersicle({
-        book,
-        chapter: indexes[0] || 1,
-        verse: indexes[1] || 1,
-        limit: indexes[2] || null
-      }));
-
+      obs.push(
+        this.bibleSrv.getVersicle({
+          book,
+          chapter: indexes[0] || 1,
+          verse: indexes[1] || 1,
+          limit: indexes[2] ? (indexes[2]-indexes[1])  : null
+        }).pipe(switchMap((item: Versicles[]) => {
+          let scripture:Scriptures = { quote, verse: item }
+          return of(scripture);
+        }))
+      )
     })
 
-    // .subscribe(songs => {
-    //   console.log('saved', songs)
-    //   this.savedList.emit(songs);
-    // })
+    forkJoin(...obs)
+    .subscribe(items => {
+      items = flatten(items);
+      this.savedList.emit(items);
+    });
 
   }
 
@@ -67,7 +78,7 @@ export class MainConfigComponent implements OnInit {
         elements: JSON.parse(localStorage.getItem('actualSchedule'))
       }).subscribe();
       this.scheduleForm.reset();
-    }, ()=>{
+    }, () => {
       this.scheduleForm.reset();
     });
     

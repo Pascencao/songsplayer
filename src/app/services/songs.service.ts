@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Song } from 'src/models/song.model';
 import { Verse } from 'src/models/verse.model';
-import { Observable, of, generate} from 'rxjs';
+import { Observable, of, generate, forkJoin} from 'rxjs';
 // import { forkJoin } from "rxjs/observable";
-import { mergeMap } from 'rxjs/operators';
+import { mergeMap, switchMap } from 'rxjs/operators';
 import { DOMAIN } from '../domain.constants';
 import { ApiCommsService } from './api-comms.service';
 
@@ -63,14 +63,20 @@ export class SongsService {
     return this.createSong({
       name: newSong.name,
       order: newSong.order,
-    }).subscribe((song: Song): any => {
+    }).pipe(
+      switchMap((song: Song): any => {
 
-      let verses = newSong.verse.map((verse: Verse) => {
-        verse.song = song;
-        return this.createVerse(verse).subscribe();
+        let verses = newSong.verse.map((verse: Verse) => {
+          verse.song = song;
+          return this.createVerse(verse).subscribe();
+        })
+        verses.push(this.addBackground(newSong.defaultBackground, 'song', song.id))
+        return forkJoin(...verses);
       })
-      this.addBackground(newSong.defaultBackground, 'song', song.id).subscribe();
-      return {song, verse: verses};
-    })
+    )
+    .pipe(switchMap(item => {
+      console.log('new song', item);
+      return of({item})
+    }))
   }
 }
