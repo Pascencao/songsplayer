@@ -68,9 +68,11 @@ export class SongsService {
 
         let verses = newSong.verse.map((verse: Verse) => {
           verse.song = song;
-          return this.createVerse(verse).subscribe();
+          return this.createVerse(verse);
         })
-        verses.push(this.addBackground(newSong.defaultBackground, 'song', song.id))
+        if(newSong.defaultBackground){
+          verses.push(this.addBackground(newSong.defaultBackground, 'song', song.id))
+        }
         return forkJoin(...verses);
       })
     )
