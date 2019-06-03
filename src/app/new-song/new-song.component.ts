@@ -46,7 +46,7 @@ export class NewSongComponent implements OnInit {
   saveModal(){
     this.songSrv.createFullSong({...this.songForm.value, defaultBackground: this.file})
     .subscribe(items => {
-      console.log('NEW SON', items);
+      // console.log('NEW SON', items);
     });
     this.closeModal.emit({...this.songForm.value, defaultBackground: this.file});
   }

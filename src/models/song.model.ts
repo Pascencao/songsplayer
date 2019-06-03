@@ -8,7 +8,7 @@ export class Song{
         url: string
     };
     public verse: Verse[];
-    public key: string;
+    public key?: string;
 
     constructor(defaults = {id: null, name: null, verse: [], defaultBackground: null, order: null} ){
         Object.assign(this, defaults);

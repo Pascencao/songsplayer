@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LiveScreenComponent } from './live-screen.component';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 describe('LiveScreenComponent', () => {
   let component: LiveScreenComponent;
@@ -8,7 +9,8 @@ describe('LiveScreenComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LiveScreenComponent ]
+      declarations: [ LiveScreenComponent ],
+      schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
     })
     .compileComponents();
   }));

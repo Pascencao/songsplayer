@@ -1,6 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { UserConfigComponent } from './user-config.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { UserService } from '../services/user.service';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('UserConfigComponent', () => {
   let component: UserConfigComponent;
@@ -8,7 +11,13 @@ describe('UserConfigComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ UserConfigComponent ]
+      imports: [
+        FormsModule,
+        HttpClientModule,
+        ReactiveFormsModule
+      ],
+      declarations: [ UserConfigComponent ],
+      providers: [UserService]
     })
     .compileComponents();
   }));

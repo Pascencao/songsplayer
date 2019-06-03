@@ -77,7 +77,6 @@ export class SongsService {
       })
     )
     .pipe(switchMap(item => {
-      console.log('new song', item);
       return of({item})
     }))
   }

@@ -4,8 +4,8 @@ export class Versicles{
     public book: string = null;
     public chapter: number = null;
     public verse: number = null;
-    public key: string = null;
-    public checked: boolean = null;
+    public key?: string = null;
+    public checked?: boolean = null;
 
     constructor(defaults = {id: null, text: null, book: null, chapter: null, verse: null} ){
         Object.assign(this, defaults)

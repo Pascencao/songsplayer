@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ScheduleListComponent } from './schedule-list.component';
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 describe('ScheduleListComponent', () => {
   let component: ScheduleListComponent;
@@ -8,7 +10,9 @@ describe('ScheduleListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ScheduleListComponent ]
+      imports: [AngularFontAwesomeModule],
+      declarations: [ ScheduleListComponent ],
+      schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
     })
     .compileComponents();
   }));

@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { VerseListComponent } from './verse-list.component';
+import { RemoveNewLinePipe } from '../remove-new-line.pipe';
 
 describe('VerseListComponent', () => {
   let component: VerseListComponent;
@@ -8,7 +9,7 @@ describe('VerseListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ VerseListComponent ]
+      declarations: [ VerseListComponent, RemoveNewLinePipe ]
     })
     .compileComponents();
   }));

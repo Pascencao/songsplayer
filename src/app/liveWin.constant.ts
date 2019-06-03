@@ -1,1 +1,1 @@
-export const LIVE_WIN: any = location.pathname !== '/live' ? window.open(`${location.origin}/live`, 'Live screen','fullscreen=yes,scrollbars=no,status=no,menubar=no') : null;
+export const LIVE_WIN: any = location.pathname !== '/live' && !location.host.match('9876') ? window.open(`${location.origin}/live`, 'Live screen','fullscreen=yes,scrollbars=no,status=no,menubar=no') : null;
