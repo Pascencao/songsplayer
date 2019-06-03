@@ -38,6 +38,7 @@ export class SchedulePanelComponent implements OnInit, OnChanges {
   }
   removedSong(removed: Song){
     this.scheduleList = this.scheduleList.filter((song: Song) => song.key !== removed.key);
+    this.stored();
   }
   showSong(song: Song){
     this.displaySong.emit(song);
