@@ -20,8 +20,8 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     this.userSrv.getUserData().subscribe(user=>{
+      console.log(user)
       let { username, logo } = user;
-      console.log(logo)
       localStorage.setItem('profile', JSON.stringify({username, logo: logo.url}))
     })
   }

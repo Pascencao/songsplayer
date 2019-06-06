@@ -30,7 +30,7 @@ export class ApiCommsService {
         })
       };
     }
-    if(!username && config.url.indexOf('/auth') === -1 ){
+    if(!username && this.needToAddUser(config.url) ){
       return throwError({error: 'theres no user registerd'});
     }
     if(config.method === 'get'){
@@ -57,6 +57,6 @@ export class ApiCommsService {
   }
 
   needToAddUser(url){
-    return !url.match(/(bibles|rv1960s|upload)/);
+    return !url.match(/(bibles|rv1960s|upload|users|auth)/);
   }
 }

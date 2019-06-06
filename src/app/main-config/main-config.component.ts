@@ -9,6 +9,7 @@ import { switchMap } from 'rxjs/operators';
 import { Scriptures } from 'src/models/scriptures.model';
 import { Versicles } from 'src/models/versicles.model';
 import { flatten } from '@angular/compiler';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-main-config',
@@ -27,7 +28,8 @@ export class MainConfigComponent implements OnInit {
     private bibleSrv: BibleService,
     private scheduleSrv: ScheduleService, 
     private fb:FormBuilder,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private userSrv: UserService
   ) { 
   }
 
@@ -89,5 +91,8 @@ export class MainConfigComponent implements OnInit {
     this.modalService.open(modal,{size: 'lg', centered: true, keyboard: false}).result.then(() => {
       // console.log('Config guardadas');
     })
+  }
+  logout(){
+    this.userSrv.logout()
   }
 }
