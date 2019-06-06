@@ -28,11 +28,13 @@ export class MainConfigComponent implements OnInit {
     private scheduleSrv: ScheduleService, 
     private fb:FormBuilder,
     private modalService: NgbModal
-  ) { }
+  ) { 
+  }
 
   ngOnInit() {
     this.scheduleSrv.getSavedSchedules()
       .subscribe(sche => this.savedSchedules = sche || [])
+      
   }
 
   getSaved(ids){

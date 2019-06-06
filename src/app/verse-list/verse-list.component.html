@@ -1,6 +1,6 @@
 <ul class="list-group list-group-flush">
   <li *ngFor="let verse of verses; index as i" class="list-group-item" [ngClass]="{'active': i == active}">
-    <span class="order">{{i + 1}}</span>
+    <span class="order">{{verse.verse ? verse.chapter + ':' + verse.verse : (i + 1)}}</span>
     <button class="btn list-item" (click)="displayVerse(verse,i)">
       <span> {{verse.lirycs || verse.text | removeNewLine}}</span>
     </button>

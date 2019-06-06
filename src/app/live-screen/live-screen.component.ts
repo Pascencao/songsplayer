@@ -15,6 +15,7 @@ export class LiveScreenComponent implements OnInit {
   clear: boolean = false;
   black: boolean = false;
   showLogo: boolean = false;
+  logo: string = null;
 
   constructor() { 
     this.styleConfig = {
@@ -26,7 +27,8 @@ export class LiveScreenComponent implements OnInit {
      window.addEventListener("message", this.receiveMessage.bind(this));
     } else {
       (<any>window).attachEvent("onmessage", this.receiveMessage.bind(this));
-   }
+    }
+    this.logo = JSON.parse(localStorage.getItem('profile')).logo;
   }
   receiveMessage(msg){
     msg.data.verse && this.setVerse(msg.data.verse);
@@ -53,14 +55,19 @@ export class LiveScreenComponent implements OnInit {
   }
   toggleLogo(){
     this.showLogo = !this.showLogo;
-    this.styleConfig.background = this.showLogo ? '#000': this.getBackground(this.activeVerse.background);
+    this.styleConfig.background = this.showLogo ? (this.logo ? this.getBackground(this.logo) : '#000') : (this.activeVerse && this.activeVerse.background ? this.getBackground(this.activeVerse.background): '#000');
   }
   toggleClearScreen(){
     this.clear = !this.clear;
   }
   toggleBlackScreen(){
     this.black = !this.black;
-    this.styleConfig.background = this.black ? '#000' : this.getBackground(this.activeVerse.background);
+    if(this.black){
+      this.styleConfig.background = '#000';
+    } else {
+      this.styleConfig.background = this.activeVerse.background ? this.getBackground(this.activeVerse.background) : '#000';
+
+    }
   }
   getBackground(url){
     return `url('${DOMAIN}${url}') no-repeat transparent`

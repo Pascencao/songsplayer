@@ -17,6 +17,7 @@ export class BibleComponent implements OnInit {
   booksList: any[] = [];
   selectedQuote: Versicles = new Versicles();
   versiclesList: Versicles[] = [];
+  history: string[] = [];
 
   constructor(private bibleSrv:BibleService) { }
 
@@ -42,14 +43,17 @@ export class BibleComponent implements OnInit {
     this.scriptures.quote = this.buildQoute();
   }
   search(){
+    console.log('SEARCH', this.quote)
     if(this.quote && !!this.quote.match(/\d{1,3}/g)){
-    let indexes = this.quote.match(/\d{1,3}/g)
-    let book = this.quote.replace(/\d{1,3}/g, '').replace(':', '').trim();
-    this.selectedQuote = new Versicles({book,chapter: parseInt(indexes[0]) || 1,verse: parseInt(indexes[1]) || 0, id: null, text: null});
+      let indexes = this.quote.match(/\d{1,3}/g);
+      let book = this.quote.replace(/\d{1,3}/g, '').replace(' -','').replace(':', '').trim();
+      
+      this.selectedQuote = new Versicles({book,chapter: parseInt(indexes[0]) || 1,verse: parseInt(indexes[1]) || 0, id: null, text: null});
       this.request({
         book,
         chapter: indexes[0] || 1,
-        verse: indexes[1] || 1
+        verse: indexes[1] || 1,
+        limit: indexes[2] ? (parseInt(indexes[2])-parseInt(indexes[1]) + 1)  : null
       }).subscribe((versicles: Versicles[]) => {
         this.versiclesList = versicles;
         this.isOpen = false;
@@ -69,14 +73,27 @@ export class BibleComponent implements OnInit {
     return `${this.scriptures.verse[0].book} ${this.scriptures.verse[0].chapter}:${this.scriptures.verse[0].verse}${limit}`;
   }
   sendScriptures(){
-    this.toSchedule.emit(this.scriptures);
+    if(this.scriptures.quote && this.scriptures.verse.length){
+      this.toSchedule.emit(this.scriptures);
+      this.addToHistory(this.scriptures.quote);
+      this.scriptures = new Scriptures({quote: '', verse: []});
+      this.quote = '';
+      this.versiclesList = [];
+    }
   }
   more(){
     let query = this.selectedQuote;
-    query.verse += 10;
+    query.verse += this.versiclesList.length;
     this.request(query).subscribe((newVersicles: Versicles[]) => {
       this.versiclesList = [...this.versiclesList, ...newVersicles];
     });
+  }
+  addToHistory(quo){
+    this.history = [quo, ...this.history];
+  }
+  restoreQuote(quo){
+    this.quote = quo;
+    this.search();
   }
   request(query){
     return this.bibleSrv.getVersicle(query)

@@ -10,6 +10,7 @@ ul{
             margin-left: 5px;
             width: 80%;
             display: inline-block;
+            padding: 10px 5px;
         }
         span{
             height: 100%;
@@ -20,6 +21,11 @@ ul{
             padding: inherit;
             text-align: center;
             background: #ccc;
+            vertical-align: top;
+            padding-top: 2%;
+        }
+        &.list-group-item{
+            padding: 0;
         }
     }
 }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Song } from 'src/models/song.model';
 import { Verse } from 'src/models/verse.model';
 import { Versicles } from 'src/models/versicles.model';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -13,9 +14,16 @@ export class DashboardComponent implements OnInit {
   public selectedSong: Song;
   public liveSong: Song;
   public restoredSongs: Song[];
-  constructor() { }
+  constructor(
+    private userSrv: UserService
+  ) { }
 
   ngOnInit() {
+    this.userSrv.getUserData().subscribe(user=>{
+      let { username, logo } = user;
+      console.log(logo)
+      localStorage.setItem('profile', JSON.stringify({username, logo: logo.url}))
+    })
   }
   songSelected(song: Song){
     this.selectedSong = song;

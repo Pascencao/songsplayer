@@ -23,10 +23,9 @@
     </li>
   </ul>
   <div class="actions">
-    <button class="btn btn-light btn-sm float-left" [disabled]="!selectedQuote.chapter || (selectedQuote.chapter === 1 && selectedQuote.verse === 0)">
-      <fa name="angle-left" size="small"></fa>
-    </button>
-    
+    <span class="lastest float-left">
+      <button (click)="restoreQuote(quo)" *ngFor="let quo of history" class="btn btn-light btn-sm">{{quo}}</button>
+    </span>
     <button class="btn btn-light btn-sm float-right" [disabled]="!versiclesList.length" (click)="more()">
       <fa name="angle-right" size="small"></fa>
     </button>

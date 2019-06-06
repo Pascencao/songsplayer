@@ -10,25 +10,33 @@ import { UserService } from '../services/user.service';
 export class UserConfigComponent implements OnInit {
   @Output() closeModal: EventEmitter<any> = new EventEmitter();
   file: any = {};
-  user: any;
+  user: any = {};
   userForm = this.fb.group({
-    name: ['', Validators.required],
     logo: [null]
   })
 
-  constructor(private fb: FormBuilder, private UserSrv:UserService) {
-    this.UserSrv.getUserData().subscribe(user => {
-      this.user = user;
-    })
+  constructor(private fb: FormBuilder, private userSrv:UserService) {
   }
 
   ngOnInit() {
+    this.userSrv.getUserData().subscribe(user => {
+      this.user = user;
+      console.log(this.user)
+    })
   }
   onFileChange(event){
     this.file = event.srcElement.files[0];
-
   }
   saveModal(){
-    this.closeModal.emit();
+    if(this.file.name){
+      this.userSrv.saveLogo(this.file, this.user.id).subscribe(savedLogo => {
+        let profile = JSON.parse(localStorage.getItem('profile'));
+        profile.logo = savedLogo[0].url;
+        localStorage.setItem('profile', JSON.stringify(profile));
+        this.closeModal.emit();
+      });
+    } else {
+      this.closeModal.emit();
+    }
   }
 }

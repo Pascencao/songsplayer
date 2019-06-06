@@ -1,14 +1,21 @@
 <div class="modal-body">
-  <form [formGroup]="userForm">
-    <label for="name">
-      Nombre:
-      <input type="text" name="name" formControlName="name">
-    </label>
-    <label for="logo">
-      Logo:
-      <input type="file" (change)="onFileChange($event)" name="logo" formControlName="logo">      
-    </label>
-  </form>
+  <div class="row">
+    <div class="card col-7">
+      <img class="card-img-top" *ngIf="user.logo" [src]="user.logo" alt="">
+      <div class="card-body">
+        <h5 class="card-title">{{user.username}}</h5>
+      </div>
+    </div>
+
+    <form [formGroup]="userForm" class="col-5">
+      <div class="row">
+        <label for="logo" class="col-12">
+          Logo:
+          <input class="logoInput" type="file" (change)="onFileChange($event)" name="logo" formControlName="logo">      
+        </label>
+      </div>
+    </form>
+  </div>
 </div>
 <div class="modal-footer">
     <button type="button" class="btn btn-outline-dark" (click)="saveModal()">Guardar</button>

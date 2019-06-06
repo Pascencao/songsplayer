@@ -25,12 +25,13 @@ export class SongsService {
       });
   }
   getBachSongs(ids: number[]){
-    let idsStg = '?';
-    ids.map(id => { 
-      idsStg += `id_in=${id}&`;
-    })
-    return this.api.call({url: `${this.songsUrl}${idsStg}`, method: 'get'});
-
+    let params = {}
+    if(ids.length > 1){
+      params = {'id_in': ids};
+    } else if(ids.length === 1){
+      params = {'id': ids[0]};
+    }
+    return this.api.call({url: `${this.songsUrl}`, options: { params }, method: 'get'});
   }
   createSong(newSong): Observable<any> {
     return this.api.call({url: this.songsUrl, method: 'post', body: newSong});
